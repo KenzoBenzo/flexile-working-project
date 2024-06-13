@@ -1,5 +1,6 @@
-<script setup lang="ts">
-const route = useRoute();
+<script setup>
+import { ref, computed } from "vue";
+import PillTab from "@/components/pill-tab.vue";
 import Button from "@/components/Button.vue";
 </script>
 
@@ -34,9 +35,11 @@ import Button from "@/components/Button.vue";
 		<h1 class="text-3xl font-semibold">Invoicing</h1>
 	</header>
 	<div class="px-4 sm:px-14 py-6">
+		<PillTab :items="['Segment 1', 'Segment 2', 'Segment 3']" ref="pillTab" />
+
 		<div class="flex gap-2">
-			<Button>Open</Button>
-			<Button intent="ghost">History</Button>
+			<Button intent="default" size="medium">Open</Button>
+			<Button intent="ghost" size="medium">History</Button>
 		</div>
 		<div class="bg-gray-300 p-5 rounded-xl mt-6">
 			<h2 class="text-lg font-bold">
