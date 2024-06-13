@@ -8,7 +8,7 @@ import Button from "@/components/Button.vue";
 	<header
 		class="bg-gray-300 px-4 py-6 sm:py-6 sm:px-16 w-full flex flex-col gap-6 border-b border-b-gray-500"
 	>
-		<search
+		<div
 			class="flex items-center bg-white w-full rounded-full px-3 focus-within:ring-1"
 		>
 			<label for="search-input">
@@ -31,16 +31,23 @@ import Button from "@/components/Button.vue";
 				class="text-sm placeholder:text-sm bg-transparent px-3 py-2 w-full placeholder:text-gray-500 outline-none ring-0"
 				placeholder="Search invoices, people..."
 			/>
-		</search>
+		</div>
 		<h1 class="text-3xl font-semibold">Invoicing</h1>
 	</header>
 	<div class="px-4 sm:px-14 py-6">
-		<PillTab :items="['Segment 1', 'Segment 2', 'Segment 3']" ref="pillTab" />
+		<PillTab
+			:items="[
+				{ label: 'Segment 1' },
+				{ label: 'Segment 2' },
+				{ label: 'Segment 3', onClick: () => console.log('Segment 3 clicked') },
+			]"
+			ref="pillTab"
+		/>
 
-		<div class="flex gap-2">
+		<!-- <div class="flex gap-2">
 			<Button intent="default" size="medium">Open</Button>
 			<Button intent="ghost" size="medium">History</Button>
-		</div>
+		</div> -->
 		<div class="bg-gray-300 p-5 rounded-xl mt-6">
 			<h2 class="text-lg font-bold">
 				Verify your bank account to enable contractor payments
@@ -49,7 +56,9 @@ import Button from "@/components/Button.vue";
 				To ensure seamless payments to your contractors, we need to confirm your
 				bank account details.
 			</p>
-			<Button intent="secondary" class="mt-3">Verify bank account</Button>
+			<Button intent="secondary" size="medium" class="mt-3"
+				>Verify bank account</Button
+			>
 		</div>
 	</div>
 </template>

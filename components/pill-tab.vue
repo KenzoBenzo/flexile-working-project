@@ -1,49 +1,61 @@
 <template>
-	<div class="relative w-72 overflow-hidden">
+	<div class="relative w-fit overflow-hidden">
 		<div class="flex relative overflow-hidden">
-			<div
-				v-for="(tab, index) in tabs"
-				:key="tab"
-				class="flex-1 p-2 text-center cursor-pointer relative transition-colors duration-300 z-10"
-				:class="{ 'text-white': activeTab === index }"
-				@click="activeTab = index"
+			<button
+				v-for="(item, index) in items"
+				:key="item"
+				:class="[
+					'inline-flex border border-transparent rounded-full transition-all text-base py-2.5 px-4 font-normal whitespace-nowrap flex-1 text-center cursor-pointer relative duration-200 z-10 hover:bg-blue-500/15 hover:text-blue-500',
+					{
+						'text-white hover:text-white hover:bg-blue-700 active:bg-blue-800':
+							activeTab === index,
+					},
+				]"
+				size="medium"
+				intent="ghost"
+				@click="handleTabClick(index)"
 			>
-				{{ tab }}
-			</div>
+				{{ item.label }}
+			</button>
 			<transition :name="transitionName">
 				<div
-					class="absolute top-0 left-0 h-full bg-blue-500 transition-transform duration-300 ease-in-out z-0 rounded-full"
+					class="absolute inset-0 h-full bg-blue-600 transition-transform duration-200 ease-in-out z-0 rounded-full"
 					:style="indicatorStyle"
 					v-if="showIndicator"
 				/>
 			</transition>
 		</div>
 		<transition-group name="tab-content" tag="div" class="relative">
-			<div v-for="(tab, index) in tabs" v-show="activeTab === index" :key="tab">
-				<slot :name="tab"></slot>
+			<div
+				v-for="(item, index) in items"
+				v-show="activeTab === index"
+				:key="item"
+			>
+				<slot :name="item.label" />
 			</div>
 		</transition-group>
 	</div>
 </template>
 
-<script>
-export default {
-	data() {
-		return {
-			activeTab: 0,
-			tabs: ["Tab1", "Tab2", "Tab3"],
-			showIndicator: true,
-			transitionName: "slide",
-		};
-	},
-	computed: {
-		indicatorStyle() {
-			return {
-				transform: `translateX(${this.activeTab * 100}%)`,
-				width: `${100 / this.tabs.length}%`,
-			};
-		},
-	},
+<script setup>
+import { ref, computed } from "vue";
+import Button from "@/components/button.vue";
+
+const props = defineProps({
+	items: Array,
+});
+
+const activeTab = ref(0);
+const showIndicator = ref(true);
+const transitionName = ref("slide");
+
+const indicatorStyle = computed(() => ({
+	transform: `translateX(${activeTab.value * 100}%)`,
+	width: `${100 / props.items.length}%`,
+}));
+
+const handleTabClick = (index) => {
+	activeTab.value = index;
 };
 </script>
 

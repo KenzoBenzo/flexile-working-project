@@ -2,7 +2,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
 const button = cva(
-	"inline-flex border rounded-full transition-all text-sm font-normal",
+	"inline-flex border rounded-full transition-all text-sm font-normal whitespace-nowrap",
 	{
 		variants: {
 			intent: {
