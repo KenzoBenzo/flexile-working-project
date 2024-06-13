@@ -1,62 +1,78 @@
 <template>
 	<div class="relative w-fit overflow-hidden">
-		<div class="flex relative overflow-hidden">
+		<div class="flex gap-2 relative overflow-hidden">
 			<button
 				v-for="(item, index) in items"
-				:key="item"
+				:key="item.label"
 				:class="[
-					'inline-flex border border-transparent rounded-full transition-all text-base py-2.5 px-4 font-normal whitespace-nowrap flex-1 text-center cursor-pointer relative duration-200 z-10 hover:bg-blue-500/15 hover:text-blue-500',
+					'inline-flex border border-transparent rounded-full transition-all text-base py-2.5 px-4 font-normal whitespace-nowrap flex-1 text-center cursor-pointer relative duration-200 z-10',
 					{
-						'text-white hover:text-white hover:bg-blue-700 active:bg-blue-800':
-							activeTab === index,
+						'hover:bg-blue-500/15 hover:text-blue-500': activeTab !== index,
+						'text-white hover:text-white': activeTab === index,
 					},
 				]"
 				size="medium"
 				intent="ghost"
-				@click="handleTabClick(index)"
+				@click="handleClick(item, index)"
+				:ref="(el) => (buttonRefs[index] = el)"
 			>
 				{{ item.label }}
 			</button>
-			<transition :name="transitionName">
-				<div
-					class="absolute inset-0 h-full bg-blue-600 transition-transform duration-200 ease-in-out z-0 rounded-full"
-					:style="indicatorStyle"
-					v-if="showIndicator"
-				/>
-			</transition>
 		</div>
-		<transition-group name="tab-content" tag="div" class="relative">
+		<transition :name="transitionName">
 			<div
-				v-for="(item, index) in items"
-				v-show="activeTab === index"
-				:key="item"
-			>
-				<slot :name="item.label" />
-			</div>
-		</transition-group>
+				class="absolute inset-0 h-full bg-blue-600 transition-transform duration-300 ease-in-out z-0 rounded-full pointer-events-none"
+				:style="indicatorStyle"
+				v-if="showIndicator"
+			/>
+		</transition>
 	</div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, nextTick, onMounted, watch } from "vue";
 import Button from "@/components/button.vue";
 
 const props = defineProps({
 	items: Array,
+	activeTab: Number,
 });
 
-const activeTab = ref(0);
+const emit = defineEmits(["tabClick"]);
+
 const showIndicator = ref(true);
 const transitionName = ref("slide");
+const buttonRefs = ref([]);
+const indicatorStyle = ref({ width: "0px" });
 
-const indicatorStyle = computed(() => ({
-	transform: `translateX(${activeTab.value * 100}%)`,
-	width: `${100 / props.items.length}%`,
-}));
-
-const handleTabClick = (index) => {
-	activeTab.value = index;
+const getIndicatorStyle = () => {
+	const activeButton = buttonRefs.value[props.activeTab];
+	if (activeButton) {
+		const rect = activeButton.getBoundingClientRect();
+		const parentRect = activeButton.parentElement.getBoundingClientRect();
+		return {
+			transform: `translateX(${rect.left - parentRect.left}px)`,
+			width: `${rect.width}px`,
+		};
+	}
+	return {};
 };
+
+const handleClick = (item, index) => {
+	emit("tabClick", item, index);
+};
+
+const updateIndicator = () => {
+	nextTick(() => {
+		indicatorStyle.value = getIndicatorStyle();
+	});
+};
+
+onMounted(() => {
+	updateIndicator();
+});
+
+watch(() => props.activeTab, updateIndicator);
 </script>
 
 <style>

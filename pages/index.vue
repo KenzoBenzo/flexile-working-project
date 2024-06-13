@@ -1,7 +1,17 @@
 <script setup>
 import { ref, computed } from "vue";
-import PillTab from "@/components/pill-tab.vue";
 import Button from "@/components/Button.vue";
+import PillTab from "@/components/pill-tab.vue";
+
+const activeTabIndex = ref(0);
+const tabItems = [
+	{ label: "Open", route: "/" },
+	{ label: "History", route: "/?history" },
+];
+const handleTabClick = (item, index) => {
+	activeTabIndex.value = index;
+	navigateTo(item.route);
+};
 </script>
 
 <template>
@@ -36,18 +46,11 @@ import Button from "@/components/Button.vue";
 	</header>
 	<div class="px-4 sm:px-14 py-6">
 		<PillTab
-			:items="[
-				{ label: 'Segment 1' },
-				{ label: 'Segment 2' },
-				{ label: 'Segment 3', onClick: () => console.log('Segment 3 clicked') },
-			]"
-			ref="pillTab"
+			:items="tabItems"
+			:activeTab="activeTabIndex"
+			@tabClick="handleTabClick"
 		/>
 
-		<!-- <div class="flex gap-2">
-			<Button intent="default" size="medium">Open</Button>
-			<Button intent="ghost" size="medium">History</Button>
-		</div> -->
 		<div class="bg-gray-300 p-5 rounded-xl mt-6">
 			<h2 class="text-lg font-bold">
 				Verify your bank account to enable contractor payments
