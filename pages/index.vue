@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import Button from "@/components/button.vue";
+import Button from "@/components/Button.vue";
 import PillTabs from "@/components/PillTabs.vue";
 import ConnectBank from "@/components/ConnectBank.vue";
 import ExpandableSection from "@/components/ExpandableSection.vue";
