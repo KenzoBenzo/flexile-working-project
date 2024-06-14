@@ -3,14 +3,34 @@ import { ref, onMounted } from "vue";
 import Button from "@/components/button.vue";
 
 const isOpen = ref(false);
-const buttonRef = ref<HTMLElement | null>(null);
+const contentRef = ref<HTMLElement | null>(null);
 
 const toggleButton = () => {
 	isOpen.value = !isOpen.value;
+	console.log("isOpen.value:", isOpen.value);
+
+	if (contentRef.value) {
+		const newHeight = isOpen.value ? `${contentRef.value.scrollHeight}px` : "0";
+		console.log("Setting new height:", newHeight);
+		contentRef.value.style.height = newHeight;
+	} else {
+		console.log("contentRef.value is null or undefined");
+	}
 };
+
 const closeCard = () => {
 	isOpen.value = false;
 };
+
+onMounted(() => {
+	if (contentRef.value) {
+		console.log("contentRef.value:", contentRef.value);
+		contentRef.value.style.height = "0"; // Set initial height to 0
+		console.log("Initial height:", contentRef.value.style.height);
+	} else {
+		console.log("contentRef.value is null or undefined");
+	}
+});
 </script>
 
 <template>
@@ -42,27 +62,30 @@ const closeCard = () => {
 				isOpen ? " to enable contractor payments" : ""
 			}}
 		</h2>
-		<p class="text-sm mt-3">
+		<p class="text-sm mt-2">
 			{{
 				isOpen
 					? "Check your bank account for a $0.01 deposit from Strip on Jun 13, 2024. The transaction's description will have your 6-digit verification code starting with 'SM'."
 					: "To ensure seamless payments to your contractors, we need to confirm your bank account details."
 			}}
 		</p>
-		<p v-if="isOpen" class="text-sm mt-2">
-			If it's not visible yet, please check in 1-2 days.
-		</p>
-		<div v-if="isOpen" class="mt-4">
-			<label for="code" class="block text-sm font-medium text-gray-700"
-				>6-digit code</label
-			>
-			<div class="mt-1">
-				<input
-					id="code"
-					type="text"
-					class="block w-full border border-gray-700 p-2 rounded sm:text-sm"
-					ref="codeInput"
-				/>
+		<div
+			ref="contentRef"
+			:class="{ 'h-0 overflow-hidden': !isOpen }"
+			class="transition-height"
+		>
+			<div class="mt-4">
+				<label for="code" class="block text-sm font-medium text-gray-700"
+					>6-digit code</label
+				>
+				<div class="mt-1">
+					<input
+						id="code"
+						type="text"
+						class="block w-full border border-gray-700 p-2 rounded sm:text-sm"
+						ref="codeInput"
+					/>
+				</div>
 			</div>
 		</div>
 		<div class="flex">
@@ -79,3 +102,9 @@ const closeCard = () => {
 		</div>
 	</div>
 </template>
+
+<style>
+.transition-height {
+	transition: height 0.2s ease-in-out;
+}
+</style>
