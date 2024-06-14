@@ -1,13 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import Button from "@/components/button.vue";
 import ExpandableSection from "@/components/ExpandableSection.vue";
 
 const isOpen = ref(false);
+const codeInput = ref(null);
 
 const closeCard = () => {
 	isOpen.value = false;
 };
+
+watch(isOpen, (newValue) => {
+	if (newValue && codeInput.value) {
+		codeInput.value.focus();
+	}
+});
 </script>
 
 <template>
