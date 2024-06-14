@@ -6,7 +6,7 @@ import Button from "@/components/Button.vue";
 		class="bg-gray-900 h-16 flex items-center justify-end md:flex-col w-full md:h-screen md:w-56 px-6 py-3"
 	>
 		<div
-			class="flex flex-col justify-between w-full border border-dashed border-gray-400 bg-gray-800 text-white text-xs p-2 rounded-2xl min-h-56"
+			class="flex flex-col justify-between w-full border border-dashed border-gray-400 bg-gray-800 text-white text-xs p-2 rounded-2xl min-h-48"
 		>
 			<div class="text-center">
 				<svg
@@ -15,7 +15,7 @@ import Button from "@/components/Button.vue";
 					viewBox="0 0 24 24"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
-					class="mx-auto mb-4"
+					class="mx-auto mb-4 text-gray-200"
 				>
 					<rect
 						x="2.25"
