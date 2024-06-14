@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import Button from "@/components/Button.vue";
+import Button from "@/components/button.vue";
 import PillTabs from "@/components/PillTabs.vue";
 import ConnectBank from "@/components/ConnectBank.vue";
 import ExpandableSection from "@/components/ExpandableSection.vue";
@@ -10,7 +10,7 @@ const route = useRoute();
 const activeTabIndex = ref(0);
 const tabItems = [
 	{ label: "Open", route: "/" },
-	{ label: "History", route: "/?history" },
+	{ label: "History", route: "/?filter=history" },
 ];
 const handleTabClick = (item, index) => {
 	activeTabIndex.value = index;
