@@ -68,7 +68,12 @@ const closeCard = () => {
 			</div>
 		</ExpandableSection>
 
-		<div class="flex mt-3">
+		<div
+			:class="[
+				'bg-gray-300 flex mt-3 duration-200 ease-in-out',
+				{ 'bg-white border-gray-700': isOpen },
+			]"
+		>
 			<Button
 				intent="secondary"
 				size="medium"

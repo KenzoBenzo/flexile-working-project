@@ -1,8 +1,7 @@
 <template>
 	<div
 		ref="contentRef"
-		:class="{ 'h-0 overflow-hidden': !isExpanded }"
-		class="transition-height"
+		:class="['transition-height overflow-hidden', { 'h-0': !isExpanded }]"
 	>
 		<slot />
 	</div>

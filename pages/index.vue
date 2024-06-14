@@ -16,7 +16,7 @@ const handleTabClick = (item, index) => {
 	activeTabIndex.value = index;
 	navigateTo(item.route);
 };
-const isHistoryRoute = computed(() => route.query.history !== undefined);
+const isHistoryRoute = computed(() => route.query.filter === "history");
 </script>
 
 <template>
