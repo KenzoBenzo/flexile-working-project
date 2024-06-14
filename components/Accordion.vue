@@ -75,7 +75,7 @@ onMounted(() => {
 
 <style>
 .transition-height {
-	transition: height 0.2s ease-in-out;
+	transition: height 0.2s var(--ease-in-out-quint);
 	overflow: hidden;
 }
 </style>

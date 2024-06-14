@@ -21,7 +21,7 @@
 		</div>
 		<transition :name="transitionName">
 			<div
-				class="absolute inset-0 h-full bg-blue-600 transition-transform duration-300 ease-in-out z-0 rounded-full pointer-events-none"
+				class="absolute inset-0 h-full bg-blue-600 transition-transform duration-200 ease-[var(--ease-out-quart)] z-0 rounded-full pointer-events-none"
 				:style="indicatorStyle"
 				v-if="showIndicator"
 			/>
@@ -78,7 +78,7 @@ watch(() => props.activeTab, updateIndicator);
 <style>
 .tab-content-enter-active,
 .tab-content-leave-active {
-	transition: opacity 0.5s;
+	transition: opacity 0.2s;
 }
 .tab-content-enter,
 .tab-content-leave-to {

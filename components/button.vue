@@ -88,6 +88,6 @@ const handleClick = () => {
 
 <style scoped>
 button {
-	transition: width 0.2s ease;
+	transition: all 0.15s ease;
 }
 </style>

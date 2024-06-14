@@ -36,7 +36,7 @@ const isRejectedOrFailedRoute = computed(
 
 <template>
 	<header
-		class="bg-gray-300 px-4 py-6 sm:py-6 sm:px-[4.5rem] w-full flex flex-col gap-6 border-b border-b-gray-500"
+		class="bg-gray-300 px-4 py-6 md:py-6 md:px-[4.5rem] w-full flex flex-col gap-6 border-b border-b-gray-500"
 	>
 		<div
 			class="flex items-center bg-white w-full rounded-full px-3 focus-within:ring-1"
@@ -65,7 +65,7 @@ const isRejectedOrFailedRoute = computed(
 		<h1 class="text-3xl font-semibold">Invoicing</h1>
 	</header>
 
-	<div class="px-4 sm:px-[4.5rem] py-6">
+	<div class="px-4 md:px-[4.5rem] py-6">
 		<PillTabs
 			:items="tabItems"
 			:activeTab="activeTabIndex"

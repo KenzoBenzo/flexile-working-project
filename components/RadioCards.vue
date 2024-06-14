@@ -1,5 +1,5 @@
 <template>
-	<div class="flex gap-8 mt-6 items-stretch">
+	<div class="flex flex-col sm:flex-row sm:gap-8 gap-6 mt-6 items-stretch">
 		<label
 			v-for="(item, index) in items"
 			:key="index"
@@ -9,7 +9,7 @@
 			<input type="radio" :name="name" :value="item.route" class="hidden" />
 			<div
 				:class="[
-					'border p-6 rounded-2xl cursor-pointer transition-colors duration-50',
+					'border p-6 rounded-2xl cursor-pointer transition-colors ease h-full',
 					{
 						'bg-blue-100 border-blue-500': activeRadioIndex === index,
 						'border-gray-500 hover:bg-blue-100': activeRadioIndex !== index,

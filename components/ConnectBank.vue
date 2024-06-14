@@ -20,7 +20,7 @@ watch(isOpen, (newValue) => {
 <template>
 	<div
 		:class="[
-			'bg-gray-300 border border-gray-300 px-6 py-4 rounded-2xl mt-6 transition-max-height duration-200 ease-in-out relative',
+			'bg-gray-300 border border-gray-300 px-6 py-4 rounded-2xl mt-6 relative',
 			{ 'bg-white border-gray-700': isOpen },
 		]"
 	>
