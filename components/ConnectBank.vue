@@ -4,7 +4,8 @@ import Button from "@/components/Button.vue";
 import ExpandableSection from "@/components/ExpandableSection.vue";
 
 const isOpen = ref(false);
-const codeInput = ref(null);
+const codeInput = ref<HTMLInputElement | null>(null);
+const codeValue = ref("SW");
 
 const closeCard = () => {
 	isOpen.value = false;
@@ -13,6 +14,7 @@ const closeCard = () => {
 watch(isOpen, (newValue) => {
 	if (newValue && codeInput.value) {
 		codeInput.value.focus();
+		codeInput.value.setSelectionRange(2, 2);
 	}
 });
 </script>
@@ -65,9 +67,10 @@ watch(isOpen, (newValue) => {
 				<div class="mt-2 mb-3">
 					<input
 						id="code"
-						type="number"
-						max="100000"
-						class="block w-[calc(100%-4px)] border border-gray-700 p-2 rounded sm:text-sm font-mono outline-none focus:shadow-outline-gray m-0.5"
+						v-model="codeValue"
+						type="text"
+						maxlength="6"
+						class="block w-[calc(100%-4px)] border border-gray-700 p-2 rounded sm:text-sm font-mono outline-none focus:shadow-outline-gray m-0.5 uppercase"
 						ref="codeInput"
 						autocomplete="one-time-code"
 					/>
