@@ -39,7 +39,7 @@ onMounted(() => {
 <template>
 	<div
 		:class="[
-			'bg-gray-300 border border-gray-300 p-5 rounded-2xl mt-6 transition-max-height duration-200 ease-in-out relative',
+			'bg-gray-300 border border-gray-300 px-6 py-4 rounded-2xl mt-6 transition-max-height duration-200 ease-in-out relative',
 			{ 'bg-white border-gray-700': isOpen },
 		]"
 	>
@@ -60,12 +60,12 @@ onMounted(() => {
 			</svg>
 		</button>
 
-		<h2 class="text-lg font-bold">
+		<h2 class="text-xl font-bold">
 			Verify your bank account{{
-				isOpen ? " to enable contractor payments" : ""
+				isOpen ? "" : " to enable contractor payments"
 			}}
 		</h2>
-		<p class="text-sm mt-2">
+		<p class="text-sm mt-3">
 			{{
 				isOpen
 					? "Check your bank account for a $0.01 deposit from Strip on Jun 13, 2024. The transaction's description will have your 6-digit verification code starting with 'SM'."
@@ -74,14 +74,16 @@ onMounted(() => {
 		</p>
 		<div
 			ref="contentRef"
-			:class="{ 'h-0 overflow-hidden': !isOpen }"
-			class="transition-height"
+			:class="['transition-height overflow-hidden', { 'h-0': !isOpen }]"
 		>
-			<div class="mt-4">
-				<label for="code" class="block text-sm font-medium text-gray-700"
+			<div class="mt-6">
+				<p class="text-sm mb-6">
+					If it's not visible yet, please check in 1-2 days.
+				</p>
+				<label for="code" class="block text-sm font-medium text-gray-700 pl-0.5"
 					>6-digit code</label
 				>
-				<div class="mt-1">
+				<div class="mt-2 mb-3">
 					<input
 						id="code"
 						type="number"
@@ -93,12 +95,11 @@ onMounted(() => {
 				</div>
 			</div>
 		</div>
-		<div class="flex">
+		<div class="flex mt-3">
 			<Button
 				intent="secondary"
 				size="medium"
 				:willGrow="true"
-				class="mt-4"
 				:isFullWidth="isOpen"
 				@click="toggleButton"
 			>
@@ -110,6 +111,10 @@ onMounted(() => {
 
 <style>
 .transition-height {
-	transition: height 0.2s ease-in-out;
+	transition: height 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.transition-height.h-0 {
+	filter: blur(4px);
 }
 </style>
