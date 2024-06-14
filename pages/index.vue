@@ -16,7 +16,22 @@ const handleTabClick = (item, index) => {
 	activeTabIndex.value = index;
 	navigateTo(item.route);
 };
+
+const radioItems = [
+	{ title: "0", label: "Awaiting your approval", route: "/" },
+	{ title: "0", label: "Approved", route: "/?filter=approved" },
+	{
+		title: "0",
+		label: "Rejected or failed",
+		route: "/?filter=rejected_or_failed",
+	},
+];
+
 const isHistoryRoute = computed(() => route.query.filter === "history");
+const isApprovedRoute = computed(() => route.query.filter === "approved");
+const isRejectedOrFailedRoute = computed(
+	() => route.query.filter === "rejected_or_failed"
+);
 </script>
 
 <template>
@@ -60,20 +75,7 @@ const isHistoryRoute = computed(() => route.query.filter === "history");
 		<ConnectBank />
 
 		<ExpandableSection :expanded="!isHistoryRoute">
-			<div class="flex gap-8 mt-6 items-stretch">
-				<div class="bg-blue-100 border border-blue-500 p-6 rounded-2xl flex-1">
-					<p class="font-bold text-xl">0</p>
-					<p class="text-xs">Awaiting your approval</p>
-				</div>
-				<div class="border border-gray-500 p-6 rounded-2xl flex-1">
-					<p class="font-bold text-xl">0</p>
-					<p class="text-xs">Approved</p>
-				</div>
-				<div class="border border-gray-500 p-6 rounded-2xl flex-1">
-					<p class="font-bold text-xl">0</p>
-					<p class="text-xs">Rejected or failed</p>
-				</div>
-			</div>
+			<RadioCards name="invoices" :items="radioItems" />
 		</ExpandableSection>
 
 		<div
@@ -90,7 +92,12 @@ const isHistoryRoute = computed(() => route.query.filter === "history");
 				<path stroke="currentColor" d="m7.25 12.75 3.5 3 6-7.5" />
 			</svg>
 			<p class="mx-auto text-center text-sm mt-2">
-				No invoices <span v-if="!isHistoryRoute">awaiting your approval</span>
+				<span v-if="isHistoryRoute">No invoices awaiting your approval</span>
+				<span v-else-if="isApprovedRoute">No approved invoices</span>
+				<span v-else-if="isRejectedOrFailedRoute">
+					No rejected or failed invoices
+				</span>
+				<span v-else>No invoices</span>
 			</p>
 		</div>
 	</div>
