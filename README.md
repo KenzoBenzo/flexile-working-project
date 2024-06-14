@@ -10,6 +10,8 @@ Specifically of note:
 
 ## Commands
 
+This project uses a [nuxt.js](https://nuxt.com/) starter, and [tailwind-css](https://tailwindcss.com/).
+
 Install the dependencies:
 
 ```bash
