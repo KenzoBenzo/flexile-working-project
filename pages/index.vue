@@ -1,7 +1,8 @@
 <script setup>
 import { ref, computed } from "vue";
 import Button from "@/components/Button.vue";
-import PillTab from "@/components/pill-tab.vue";
+import PillTabs from "@/components/PillTabs.vue";
+import ConnectBank from "@/components/ConnectBank.vue";
 
 const activeTabIndex = ref(0);
 const tabItems = [
@@ -45,23 +46,12 @@ const handleTabClick = (item, index) => {
 		<h1 class="text-3xl font-semibold">Invoicing</h1>
 	</header>
 	<div class="px-4 sm:px-14 py-6">
-		<PillTab
+		<PillTabs
 			:items="tabItems"
 			:activeTab="activeTabIndex"
 			@tabClick="handleTabClick"
 		/>
 
-		<div class="bg-gray-300 p-5 rounded-xl mt-6">
-			<h2 class="text-lg font-bold">
-				Verify your bank account to enable contractor payments
-			</h2>
-			<p class="text-sm mt-3">
-				To ensure seamless payments to your contractors, we need to confirm your
-				bank account details.
-			</p>
-			<Button intent="secondary" size="medium" class="mt-3"
-				>Verify bank account</Button
-			>
-		</div>
+		<ConnectBank />
 	</div>
 </template>

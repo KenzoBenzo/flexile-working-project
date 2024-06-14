@@ -5,7 +5,7 @@
 				v-for="(item, index) in items"
 				:key="item.label"
 				:class="[
-					'inline-flex border border-transparent rounded-full transition-all text-base py-2.5 px-4 font-normal whitespace-nowrap flex-1 text-center cursor-pointer relative duration-200 z-10',
+					'inline-flex border border-transparent rounded-full transition-all text-base py-2.5 px-4 font-normal whitespace-nowrap flex-1 text-center cursor-pointer relative duration-200 z-[1]',
 					{
 						'hover:bg-blue-500/15 hover:text-blue-500': activeTab !== index,
 						'text-white hover:text-white': activeTab === index,
@@ -29,7 +29,7 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, nextTick, onMounted, watch } from "vue";
 import Button from "@/components/button.vue";
 

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { cva, type VariantProps } from "class-variance-authority";
+import { ref, onMounted, watchEffect, computed } from "vue";
 
 const button = cva(
-	"inline-flex border rounded-full transition-all text-sm font-normal whitespace-nowrap",
+	"inline-flex items-center justify-center border rounded-full transition-all text-sm font-normal whitespace-nowrap text-center",
 	{
 		variants: {
 			intent: {
@@ -25,20 +26,68 @@ const button = cva(
 
 type ButtonProps = VariantProps<typeof button>;
 
-withDefaults(
+const props = withDefaults(
 	defineProps<{
 		intent: ButtonProps["intent"];
 		size: ButtonProps["size"];
+		willGrow: boolean;
+		isFullWidth: boolean;
 	}>(),
 	{
 		intent: "default",
 		size: "medium",
+		willGrow: false,
+		isFullWidth: false,
 	}
 );
+
+const buttonRef = ref<HTMLButtonElement | null>(null);
+const initialWidth = ref("auto");
+const originalInitialWidth = ref("auto");
+
+const buttonWidth = computed(() => {
+	const width =
+		props.willGrow && props.isFullWidth ? "100%" : initialWidth.value;
+	return width;
+});
+
+onMounted(() => {
+	if (buttonRef.value) {
+		initialWidth.value = `${buttonRef.value.offsetWidth}px`;
+		originalInitialWidth.value = initialWidth.value;
+	}
+});
+
+watchEffect(() => {
+	if (props.willGrow && props.isFullWidth) {
+		initialWidth.value = "100%";
+	} else if (props.willGrow && !props.isFullWidth) {
+		initialWidth.value = originalInitialWidth.value;
+	}
+});
+
+const emit = defineEmits<{
+	(event: "click"): void;
+}>();
+
+const handleClick = () => {
+	emit("click");
+};
 </script>
 
 <template>
-	<button :class="button({ intent, size })">
+	<button
+		:class="button({ intent, size })"
+		:style="{ width: buttonWidth }"
+		ref="buttonRef"
+		@click="handleClick"
+	>
 		<slot />
 	</button>
 </template>
+
+<style scoped>
+button {
+	transition: width 0.2s ease;
+}
+</style>
