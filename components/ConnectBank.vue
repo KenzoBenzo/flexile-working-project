@@ -1,39 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import Button from "@/components/button.vue";
+import ExpandableSection from "@/components/ExpandableSection.vue";
 
 const isOpen = ref(false);
-const contentRef = ref<HTMLElement | null>(null);
-
-const toggleButton = () => {
-	isOpen.value = !isOpen.value;
-	console.log("isOpen.value:", isOpen.value);
-
-	if (contentRef.value) {
-		const newHeight = isOpen.value ? `${contentRef.value.scrollHeight}px` : "0";
-		console.log("Setting new height:", newHeight);
-		contentRef.value.style.height = newHeight;
-	} else {
-		console.log("contentRef.value is null or undefined");
-	}
-};
 
 const closeCard = () => {
 	isOpen.value = false;
-	if (contentRef.value) {
-		contentRef.value.style.height = "0";
-	}
 };
-
-onMounted(() => {
-	if (contentRef.value) {
-		console.log("contentRef.value:", contentRef.value);
-		contentRef.value.style.height = "0"; // Set initial height to 0
-		console.log("Initial height:", contentRef.value.style.height);
-	} else {
-		console.log("contentRef.value is null or undefined");
-	}
-});
 </script>
 
 <template>
@@ -72,10 +46,8 @@ onMounted(() => {
 					: "To ensure seamless payments to your contractors, we need to confirm your bank account details."
 			}}
 		</p>
-		<div
-			ref="contentRef"
-			:class="['transition-height overflow-hidden', { 'h-0': !isOpen }]"
-		>
+
+		<ExpandableSection :expanded="isOpen">
 			<div class="mt-6">
 				<p class="text-sm mb-6">
 					If it's not visible yet, please check in 1-2 days.
@@ -94,27 +66,18 @@ onMounted(() => {
 					/>
 				</div>
 			</div>
-		</div>
+		</ExpandableSection>
+
 		<div class="flex mt-3">
 			<Button
 				intent="secondary"
 				size="medium"
 				:willGrow="true"
 				:isFullWidth="isOpen"
-				@click="toggleButton"
+				@click="isOpen = !isOpen"
 			>
 				{{ isOpen ? "Submit" : "Verify bank account" }}
 			</Button>
 		</div>
 	</div>
 </template>
-
-<style>
-.transition-height {
-	transition: height 0.2s ease-in-out, filter 0.2s ease-in-out;
-}
-
-.transition-height.h-0 {
-	filter: blur(4px);
-}
-</style>

@@ -3,7 +3,10 @@ import { ref, computed } from "vue";
 import Button from "@/components/Button.vue";
 import PillTabs from "@/components/PillTabs.vue";
 import ConnectBank from "@/components/ConnectBank.vue";
+import ExpandableSection from "@/components/ExpandableSection.vue";
+import { useRoute } from "nuxt/app";
 
+const route = useRoute();
 const activeTabIndex = ref(0);
 const tabItems = [
 	{ label: "Open", route: "/" },
@@ -13,11 +16,12 @@ const handleTabClick = (item, index) => {
 	activeTabIndex.value = index;
 	navigateTo(item.route);
 };
+const isHistoryRoute = computed(() => route.query.history !== undefined);
 </script>
 
 <template>
 	<header
-		class="bg-gray-300 px-4 py-6 sm:py-6 sm:px-16 w-full flex flex-col gap-6 border-b border-b-gray-500"
+		class="bg-gray-300 px-4 py-6 sm:py-6 sm:px-[4.5rem] w-full flex flex-col gap-6 border-b border-b-gray-500"
 	>
 		<div
 			class="flex items-center bg-white w-full rounded-full px-3 focus-within:ring-1"
@@ -45,7 +49,8 @@ const handleTabClick = (item, index) => {
 		</div>
 		<h1 class="text-3xl font-semibold">Invoicing</h1>
 	</header>
-	<div class="px-4 sm:px-14 py-6">
+
+	<div class="px-4 sm:px-[4.5rem] py-6">
 		<PillTabs
 			:items="tabItems"
 			:activeTab="activeTabIndex"
@@ -53,5 +58,40 @@ const handleTabClick = (item, index) => {
 		/>
 
 		<ConnectBank />
+
+		<ExpandableSection :expanded="!isHistoryRoute">
+			<div class="flex gap-8 mt-6 items-stretch">
+				<div class="bg-blue-100 border border-blue-500 p-6 rounded-2xl flex-1">
+					<p class="font-bold text-xl">0</p>
+					<p class="text-xs">Awaiting your approval</p>
+				</div>
+				<div class="border border-gray-500 p-6 rounded-2xl flex-1">
+					<p class="font-bold text-xl">0</p>
+					<p class="text-xs">Approved</p>
+				</div>
+				<div class="border border-gray-500 p-6 rounded-2xl flex-1">
+					<p class="font-bold text-xl">0</p>
+					<p class="text-xs">Rejected or failed</p>
+				</div>
+			</div>
+		</ExpandableSection>
+
+		<div
+			class="w-full rounded-2xl border border-dashed border-gray-300 p-8 mt-6 text-gray-500"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewbox="0 0 24 24"
+				fill="none"
+				strokeWidth="4"
+				class="mx-auto h-7 w-7"
+			>
+				<circle cx="12" cy="12" r="10" stroke="currentColor" />
+				<path stroke="currentColor" d="m7.25 12.75 3.5 3 6-7.5" />
+			</svg>
+			<p class="mx-auto text-center text-sm mt-2">
+				No invoices <span v-if="!isHistoryRoute">awaiting your approval</span>
+			</p>
+		</div>
 	</div>
 </template>
