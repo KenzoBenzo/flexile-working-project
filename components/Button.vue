@@ -9,8 +9,8 @@ const button = cva(
 			intent: {
 				default:
 					"text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 border-transparent",
-				outline:
-					"text-gray-700 border-gray-500 bg-white hover:bg-gray-50 active:bg-gray-100",
+				inverse:
+					"text-gray-700 border-white bg-white hover:bg-gray-100 active:bg-gray-200",
 				secondary:
 					"text-white bg-gray-900 hover:bg-blue-600 active:bg-blue-700 border-transparent",
 				ghost:
