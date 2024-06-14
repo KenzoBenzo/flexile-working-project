@@ -24,24 +24,24 @@ import Button from "@/components/Button.vue";
 						height="15.5"
 						rx="7.75"
 						stroke="currentColor"
-						strokeWidth="0.5"
+						strokeWidth="0.25"
 					/>
 					<circle
 						cx="10"
 						cy="19"
 						r="1.75"
 						stroke="currentColor"
-						strokeWidth="0.5"
+						strokeWidth="0.25"
 					/>
 					<path
 						d="M8 13C8 14.1046 7.10457 15 6 15C4.89543 15 4 14.1046 4 13"
 						stroke="currentColor"
-						strokeWidth="0.5"
+						strokeWidth="0.25"
 					/>
 					<path
 						d="M16 13C16 14.1046 15.1046 15 14 15C12.8954 15 12 14.1046 12 13"
 						stroke="currentColor"
-						strokeWidth="0.5"
+						strokeWidth="0.25"
 					/>
 					<path
 						d="M14 5.5515V5.25249L15.4485 3.39203V3.36545H14.0465V3H15.9535V3.31229L14.5449 5.15947V5.18605H16V5.5515H14Z"
@@ -75,9 +75,11 @@ import Button from "@/components/Button.vue";
 	0%,
 	100% {
 		transform: translateX(0);
+		opacity: 0.6;
 	}
 	50% {
-		transform: translateX(2px);
+		transform: translateX(1.5px);
+		opacity: 1;
 	}
 }
 
@@ -85,9 +87,11 @@ import Button from "@/components/Button.vue";
 	0%,
 	100% {
 		transform: translateX(0);
+		opacity: 0.5;
 	}
 	50% {
 		transform: translateX(2px);
+		opacity: 0.8;
 	}
 }
 
@@ -95,9 +99,11 @@ import Button from "@/components/Button.vue";
 	0%,
 	100% {
 		transform: translateX(0);
+		opacity: 0.75;
 	}
 	50% {
 		transform: translateX(-2px);
+		opacity: 1;
 	}
 }
 
