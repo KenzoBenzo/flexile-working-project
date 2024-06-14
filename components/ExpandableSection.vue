@@ -43,7 +43,7 @@ onMounted(() => {
 
 <style scoped>
 .transition-height {
-	transition: height 0.2s var(--ease-out-quad), filter 0.2s var(--ease-out-quad);
+	transition: height 0.4s var(--ease-out-expo), filter 0.4s var(--ease-out-expo);
 }
 
 .transition-height.h-0 {

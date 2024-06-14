@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { ref, nextTick, onMounted, watch } from "vue";
-import Button from "@/components/button.vue";
+import Button from "@/components/Button.vue";
 
 const props = defineProps({
 	items: Array,

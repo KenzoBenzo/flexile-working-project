@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import Button from "@/components/button.vue";
+import Button from "@/components/Button.vue";
 import ExpandableSection from "@/components/ExpandableSection.vue";
 
 const isOpen = ref(false);
@@ -20,7 +20,7 @@ watch(isOpen, (newValue) => {
 <template>
 	<div
 		:class="[
-			'bg-gray-300 border border-gray-300 px-6 py-4 rounded-2xl mt-6 relative',
+			'bg-gray-300 border border-gray-300 px-6 py-4 rounded-2xl mt-6 relative transition-all duration-200 ease-[var(--ease-out-expo)]',
 			{ 'bg-white border-gray-700': isOpen },
 		]"
 	>
@@ -77,7 +77,7 @@ watch(isOpen, (newValue) => {
 
 		<div
 			:class="[
-				'bg-gray-300 flex mt-3 duration-200 ease-in-out',
+				'bg-gray-300 flex mt-3 transition-all duration-200 ease-[var(--ease-out-expo)]',
 				{ 'bg-white border-gray-700': isOpen },
 			]"
 		>
