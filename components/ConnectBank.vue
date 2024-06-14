@@ -20,6 +20,9 @@ const toggleButton = () => {
 
 const closeCard = () => {
 	isOpen.value = false;
+	if (contentRef.value) {
+		contentRef.value.style.height = "0";
+	}
 };
 
 onMounted(() => {
@@ -81,9 +84,11 @@ onMounted(() => {
 				<div class="mt-1">
 					<input
 						id="code"
-						type="text"
-						class="block w-full border border-gray-700 p-2 rounded sm:text-sm"
+						type="number"
+						max="100000"
+						class="block w-[calc(100%-4px)] border border-gray-700 p-2 rounded sm:text-sm font-mono outline-none focus:shadow-outline-gray m-0.5"
 						ref="codeInput"
+						autocomplete="one-time-code"
 					/>
 				</div>
 			</div>
