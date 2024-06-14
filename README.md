@@ -1,6 +1,6 @@
 # Flexile working project
 
-This is an exploration of what Flexile could feel like with more intention into fluidity.
+This is an exploration of what Flexile could feel like with more intention into fluidity. I put emphasis into zippy, quick animations to emphasize the speed of Flexile (even when it may not exist haha).
 
 Specifically of note:
 
