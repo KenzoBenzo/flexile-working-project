@@ -28,16 +28,18 @@ type ButtonProps = VariantProps<typeof button>;
 
 const props = withDefaults(
 	defineProps<{
-		intent: ButtonProps["intent"];
-		size: ButtonProps["size"];
-		willGrow: boolean;
-		isFullWidth: boolean;
+		intent?: ButtonProps["intent"];
+		size?: ButtonProps["size"];
+		willGrow?: boolean;
+		isFullWidth?: boolean;
+		customClass?: string;
 	}>(),
 	{
 		intent: "default",
 		size: "medium",
 		willGrow: false,
 		isFullWidth: false,
+		customClass: undefined,
 	}
 );
 
@@ -46,8 +48,11 @@ const initialWidth = ref("auto");
 const originalInitialWidth = ref("auto");
 
 const buttonWidth = computed(() => {
+	const overrideWidthFull = props.customClass?.includes("w-full") ?? false; // Updated to use 'props.customClass'
 	const width =
-		props.willGrow && props.isFullWidth ? "100%" : initialWidth.value;
+		(props.willGrow && props.isFullWidth) || overrideWidthFull
+			? "100%"
+			: initialWidth.value;
 	return width;
 });
 
@@ -77,7 +82,7 @@ const handleClick = () => {
 
 <template>
 	<button
-		:class="button({ intent, size })"
+		:class="[button({ intent, size }), props.customClass]"
 		:style="{ width: buttonWidth }"
 		ref="buttonRef"
 		@click="handleClick"
