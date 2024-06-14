@@ -5,7 +5,7 @@ import ExpandableSection from "@/components/ExpandableSection.vue";
 
 const isOpen = ref(false);
 const codeInput = ref<HTMLInputElement | null>(null);
-const codeValue = ref("SW");
+const codeValue = ref("SM");
 
 const closeCard = () => {
 	isOpen.value = false;
